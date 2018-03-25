@@ -1,26 +1,17 @@
 ﻿using System;
 using System.Text;
-using System.Net;
 using System.Net.Sockets;
 
 namespace BrutalmazeClient
 {
 	class Program
 	{
-		private static Socket ConnectSocket(string host, int port)
-		{
-			IPHostEntry ipHostInfo = Dns.GetHostEntry(host);
-			IPAddress ipAddress = ipHostInfo.AddressList[0];
-			Socket tmp = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-			tmp.Connect(ipAddress, port);
-			return tmp;
-		}
-
 		static void Main(string[] args)
 		{
 			const string host = "localhost";
 			const int port = 8089;
-			Socket client_socket = ConnectSocket(host, port);
+			Socket client_socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+			client_socket.Connect(host, port);
 			Random rnd = new Random();
 
 			int recv, sent;
